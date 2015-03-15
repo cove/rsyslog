@@ -761,7 +761,7 @@ strmReadLine(strm_t *pThis, cstr_t **ppCStr, uint8_t mode, sbool bEscapeLF)
 				}
 			} else {
 				if(bPrevWasNL) {
-					if ((c == ' ') || (c == '\t') || (mode == 3 && isdigit(c))){
+					if ((c == ' ') || (c == '\t') || (mode == 3 && !isdigit(c))){
                					CHKiRet(cstrAppendChar(*ppCStr, c));
                					CHKiRet(strmReadChar(pThis, &c));
 						bPrevWasNL = 0;
