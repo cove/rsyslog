@@ -746,7 +746,7 @@ strmReadLine(strm_t *pThis, cstr_t **ppCStr, uint8_t mode, sbool bEscapeLF)
 			}
 		}
         	CHKiRet(cstrFinalize(*ppCStr));
-	} else if(mode == 2) {
+	} else if(mode == 2 || mode == 3) {
 		/* indented follow-up lines */
 		finished=0;
 		bPrevWasNL = 0;
@@ -761,7 +761,7 @@ strmReadLine(strm_t *pThis, cstr_t **ppCStr, uint8_t mode, sbool bEscapeLF)
 				}
 			} else {
 				if(bPrevWasNL) {
-					if ((c == ' ') || (c == '\t')){
+					if ((c == ' ') || (c == '\t') || (mode == 3 && isdigit(c))){
                					CHKiRet(cstrAppendChar(*ppCStr, c));
                					CHKiRet(strmReadChar(pThis, &c));
 						bPrevWasNL = 0;
